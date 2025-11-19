@@ -1,11 +1,26 @@
-# THE FLOW OF DECISION
+# THE LOGICAL FLOW OF METRIC OPTIMIZATION
 
 ```mermaid
-    flowchart TD
-    0[Original data] --> 1[Exploratory data analysis] --> A
-    A[Data splitting] --> B[Train set]
-    A --> C[Test set]
-    B --> D[Baseline model with SVM]
+    graph TD
+    0[PCA transformed dataset] --> 1[Exploratory data analysis] --> A
+    A[
+        Choose target metric
+        Data preparation
+        Stratified splitting
+    ] --> B((Train set))
+    A --> C((Test set))
+    B --> D[
+        Baseline with **SVM**
+        High precision + low recall
+    ]
+    D --> E[Tune class_weight with **balance**]
+
+    E ---> F[Tune class_weight for trade-off between recall and precision]
+
+
+    B --> L[
+        Reserved branch
+    ]
 ```
 
 ## NOTES
@@ -22,3 +37,4 @@
 - `A(rounded)`
 - `A((circle))`
 - `A{diamond}`
+
