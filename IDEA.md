@@ -15,7 +15,11 @@
     ]
     D --> E[Tune class_weight with **balance**]
 
-    E ---> F[Tune class_weight for trade-off between recall and precision]
+    E ---> F[Tune **class_weight** for trade-off between recall and precision]
+
+    F --> G[Tune decision boundary **threshold**]
+
+    G --> H[❌]
 
 
     B --> L[
