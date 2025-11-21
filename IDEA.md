@@ -4,7 +4,7 @@
     graph TD
     0[PCA transformed dataset] --> 1[Exploratory data analysis] --> A
     A[
-        Choose target metric
+        Choose **target metric**
         Data preparation
         Stratified splitting
     ] --> B((Train set))
@@ -15,27 +15,32 @@
     ]
     D --> E[Tune class_weight with **balance**]
 
-    E ---> F[Tune **class_weight** for trade-off between recall and precision]
+    E --> F[Tune **class_weight** for trade-off between recall and precision]
 
     F --> G[Tune decision boundary **threshold**]
 
-    G --> H[❌]
+    G --> H[✅]
 
+    B --> L[Try a non-linear classifier **Random Forest**]
 
-    B --> L[
-        Reserved branch
-    ]
+    L --> M[Use **SMOTE** to handle class imbalance]
+
+    M --> N[Use **Borderline-SMOTE** to handle the caveat of the **SMOTE**]
+
+    N --> O[Tune **sampling_strategy**]
+
+    O --> P[✅]
 ```
 
-## NOTES
+# NOTES
 
-### 👉 Directions:
+## 👉 Directions:
 
 - `TD` = top → down
 - `LR` = left → right
 - `BT` = bottom → top
 
-### 🤨 Node shapes:
+## 🤨 Node shapes:
 
 - `A[box]`
 - `A(rounded)`
