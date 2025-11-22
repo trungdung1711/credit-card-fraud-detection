@@ -39,7 +39,7 @@
 
     R --> S[✅]
 
-    B --> T[Apply the full pipeline with tuned parameter to the final test set for a **metric estimation** in production]
+    C --> T[Apply the full pipeline with tuned parameter to the final test set for a **metric estimation** in production]
 
     T --> V[✅]
 ```
