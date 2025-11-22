@@ -30,6 +30,18 @@
     N --> O[Tune **sampling_strategy**]
 
     O --> P[✅]
+
+    B --> Q[Define **Autoencoder** structure
+    Add feature as **Latent space** and **Recon_error**
+    ]
+
+    Q --> R[Tune **sampling_strategy**]
+
+    R --> S[✅]
+
+    B --> T[Apply the full pipeline with tuned parameter to the final test set for a **metric estimation** in production]
+
+    T --> V[✅]
 ```
 
 # NOTES
