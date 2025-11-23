@@ -1,47 +1,39 @@
 # THE LOGICAL FLOW OF METRIC OPTIMIZATION
 
 ```mermaid
-    graph TD
-    0[PCA transformed dataset] --> 1[Exploratory data analysis] --> A
-    A[
-        Choose **target metric**
-        Data preparation
-        Stratified splitting
-    ] --> B((Train set))
-    A --> C((Test set))
-    B --> D[
-        Baseline with **SVM**
-        High precision + low recall
-    ]
-    D --> E[Tune class_weight with **balance**]
+flowchart TD
 
-    E --> F[Tune **class_weight** for trade-off between recall and precision]
+A[PCA / Preprocessing] --> B[EDA]
 
-    F --> G[Tune decision boundary **threshold**]
+B --> C[Define target metric<br>Stratified split]
+C --> D((Train))
+C --> E((Test))
 
-    G --> H[✅]
+%% SVM Branch
+D --> S1[Baseline SVM<br>High precision, low recall]
+S1 --> S2[Hypothesis: imbalance → bad margin]
+S2 --> S3[Tune class_weight]
+S3 --> S4[Tune threshold<br>→ Improve recall]
+S4 --> SOK[✔ Linear branch validated]
 
-    B --> L[Try a non-linear classifier **Random Forest**]
+%% RF Branch
+D --> R1[Random Forest]
+R1 --> R2[Hypothesis: model biased by imbalance]
+R2 --> R3[Apply SMOTE]
+R3 --> R4[Apply Borderline-SMOTE]
+R4 --> R5[Tune sampling_strategy]
+R5 --> ROK[✔ Tree-based branch validated]
 
-    L --> M[Use **SMOTE** to handle class imbalance]
+%% AE Branch
+D --> A1[Autoencoder<br>Latent + Recon error]
+A1 --> A2[Hypothesis: non-linear manifold → better anomaly signal]
+A2 --> A3[Tune sampling_strategy or thresholds]
+A3 --> AOK[✔ Representation branch validated]
 
-    M --> N[Use **Borderline-SMOTE** to handle the caveat of the **SMOTE**]
+%% Final
+E --> F[Apply full pipeline<br>Estimate production performance]
+F --> END[✔ Done]
 
-    N --> O[Tune **sampling_strategy**]
-
-    O --> P[✅]
-
-    B --> Q[Define **Autoencoder** structure
-    Add feature as **Latent space** and **Recon_error**
-    ]
-
-    Q --> R[Tune **sampling_strategy**]
-
-    R --> S[✅]
-
-    C --> T[Apply the full pipeline with tuned parameter to the final test set for a **metric estimation** in production]
-
-    T --> V[✅]
 ```
 
 # NOTES
